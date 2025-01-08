@@ -298,3 +298,52 @@ def solve_ode_runge_kutta(f: Callable, x0: float, y0: float, x_end: float, h: fl
         y_values.append(y)
 
     return np.array(x_values), np.array(y_values)
+
+def solve_ode_system_euler(f_system: list, x0: float, y0: list, x_end: float, h: float) -> tuple:
+    """
+    Метод Эйлера для решения систем обыкновенных дифференциальных уравнений (ОДУ).
+
+    Параметры
+    ----------
+    f_system : list
+        Список функций правых частей системы ОДУ [f1, f2, ..., fn]
+    x0 : float
+        Начальная точка
+    y0 : list
+        Начальные значения y в виде списка [y1_0, y2_0, ..., yn_0]
+    x_end : float
+        Конечная точка x
+    h : float
+        Шаг интегрирования
+
+    Возвращает
+    ----------
+    tuple
+        (x_values, y_values) - массивы numpy со значениями x и y
+
+    Пример
+    -------
+    >>> def f1(x, y): return y[1]
+    >>> def f2(x, y): return -0.5 * y[1] - y[0]
+    >>> f_system = [f1, f2]
+    >>> x0, y0 = 0, [2, -1]
+    >>> x_end, h = 10, 0.1
+    >>> x_vals, y_vals = solve_ode_system_euler(f_system, x0, y0, x_end, h)
+    """
+    n = len(f_system)
+    x_values = [x0]
+    y_values = [y0]
+    x = x0
+    y = np.array(y0)
+
+    while x < x_end:
+        y_new = np.zeros(n)
+        for i in range(n):
+            y_new[i] = y[i] + h * f_system[i](x, y)
+        y = y_new
+        x = x + h
+        if x < x_end:
+            x_values.append(x)
+            y_values.append(y.tolist())
+
+    return np.array(x_values), np.array(y_values)

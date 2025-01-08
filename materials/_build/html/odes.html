@@ -1,0 +1,1054 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Решение ДУ и систем ДУ. &#8212; Optinum Numerical Methods Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'odes';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Моделирование волны" href="fourier.html" />
+    <link rel="prev" title="Общие вычислительные операции" href="base_ops.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Optinum Numerical Methods Guide - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Optinum Numerical Methods Guide - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="base_ops.html">Общие вычислительные операции</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Решение ДУ и систем ДУ.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier.html">Моделирование волны</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fodes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/odes.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Решение ДУ и систем ДУ.</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Обыкновенные дифференциальные уравнения, задача Коши</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Основные определения и утверждения</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Локальная, глобальная ошибки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Метод центральной разности</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Разложение в ряд Тейлора:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Невязка:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Метод Эйлера</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Погрешности</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Метод предиктора-корректора</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Метод предиктора-корректора состоит из двух шагов:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Для решения ОДУ:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Шаги метода:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Метод Рунге-Кутты 1-4 порядков.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Метод Рунге-Кутты 4 порядка</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ЧИСТО ФОРМУЛЫ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">1 ПОРЯДОК — МЕТОД ЭЙЛЕРА</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2 ПОРЯДОК</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3 ПОРЯДОК</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4 ПОРЯДОК</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Решение ДУ и систем ДУ.<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>Обыкновенные дифференциальные уравнения, задача Коши<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p><strong>Обыкновенные дифференциальные уравнения (ОДУ)</strong> — уравнения, содержащие одну или несколько производных от искомой функции:</p>
+<div class="math notranslate nohighlight">
+\[
+F(x, y, y', y'', \ldots, y^{(n)}) = 0
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(x\)</span> — независимая переменная, <span class="math notranslate nohighlight">\(y = y(x)\)</span> — искомая функция.<br />
+Наивысший порядок производной <span class="math notranslate nohighlight">\(n\)</span> называют порядком дифференциального уравнения.</p>
+<p>Рассмотрим систему ОДУ, записанную в виде:</p>
+<div class="math notranslate nohighlight">
+\[
+y'(x) = f(x, y(x)).
+\]</div>
+<p>Решением этой системы является любая функция, удовлетворяющая уравнению.<br />
+Решение на интервале <span class="math notranslate nohighlight">\((a, b)\)</span> — функция <span class="math notranslate nohighlight">\(y =\phi(x)\)</span>, которая при подстановке обращает уравнение в тождество на <span class="math notranslate nohighlight">\((a, b)\)</span>.</p>
+<p>Решение ОДУ в неявном виде <span class="math notranslate nohighlight">\(\Phi(x, y)\)</span> = 0 называется интегралом ОДУ.</p>
+<p>Для ОДУ существует множество возможных решений. Чтобы найти одно уникальное решение, необходимо указать начальные условия. Тогда эта задача называется <strong>задачей Коши</strong> (задачей с начальными условиями).</p>
+<div style="text-align: center;">
+  <img src="imgs/ode_problem.png" width="70%" height="70%" alt="Image description">
+</div>
+<hr class="docutils" />
+<section id="id3">
+<h3>Основные определения и утверждения<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p><strong>Определение 1:</strong><br />
+Результат подстановки сеточной проекции точного решения в разностную схему называется невязкой:</p>
+<div class="math notranslate nohighlight">
+\[
+r_h = L_h[u]_h - f_h.
+\]</div>
+<p><strong>Определение 2:</strong></p>
+<p>Если <span class="math notranslate nohighlight">\( \|r_h\|_h \to 0 \)</span>, то разностная задача приближает дифференциальную задачу.</p>
+<p>Если  <span class="math notranslate nohighlight">\( \|r_h\|_h \leq C h^p \)</span>,то это аппроксимация порядка <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p><strong>Определение 3:</strong><br />
+Решение разностной схемы устойчиво, если для решения двух возмущенных задач:</p>
+<div class="math notranslate nohighlight">
+\[
+L_h u_h^1 = f_h + \varepsilon_h^1, \quad L_h u_h^2 = f_h + \varepsilon_h^2,
+\]</div>
+<p>выполняется:</p>
+<div class="math notranslate nohighlight">
+\[
+\|u_h^1 - u_h^2\| \leq C_1 (\|\varepsilon_h^1\| + \|\varepsilon_h^2\|).
+\]</div>
+<p><strong>Определение 4:</strong><br />
+Решение разностной задачи сходится к решению дифференциальной задачи, если:</p>
+<div class="math notranslate nohighlight">
+\[
+\|u_h - [u]_h\| \leq C_2 h^p,
+\]</div>
+<p>где <span class="math notranslate nohighlight">\( p \)</span> — порядок сходимости.</p>
+</section>
+</section>
+<section id="id4">
+<h2>Локальная, глобальная ошибки<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p><strong>Локальная (погрешность) ошибка</strong> — ошибка, образующаяся на каждом шаге.</p>
+<p><strong>Глобальная (погрешность) ошибка</strong> — ошибка, образовавшаяся за несколько шагов.</p>
+<p>Порядок глобальной погрешности относительно шага интегрирования на единицу ниже, чем порядок локальной погрешности.<br />
+Порядок численного метода для решения ОДУ определяется порядком его глобальной погрешности. Он может быть также определён как количество вычислений значения производной на каждом шаге.</p>
+<div style="text-align: center;">
+  <img src="imgs/error.png" width="70%" height="50%" alt="Image description">
+</div>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>Метод центральной разности<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p><strong>Схема с центральной разностью:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{u^{n+1} - u^{n-1}}{2\tau} = f(t, u^n)
+\]</div>
+<section id="id6">
+<h3>Разложение в ряд Тейлора:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+u^{n+1} = u^n + \tau u' + \frac{\tau^2}{2} u'' + \frac{\tau^3}{6} u''' + O(\tau^4)
+\]</div>
+</section>
+<section id="id7">
+<h3>Невязка:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+r^n = \frac{u^{n+1} - u^{n-1}}{2\tau} - f(t, u^n) =
+\frac{2\tau u'' + \frac{\tau^3}{3} u''' + O(\tau^4)}{2\tau} - f(t, u^n) =
+\frac{\tau^2}{6} u'' + O(\tau^3)
+\]</div>
+<p><strong>2-ой порядок аппроксимации</strong></p>
+</section>
+</section>
+<section id="id8">
+<h2>Метод Эйлера<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>Метод Эйлера может быть представлен в виде последовательного применения формул:</p>
+<div class="math notranslate nohighlight">
+\[
+x_1 = x_0 + h; \quad y_1 = y_0 + h y'_0 = y_0 + h f(x_0, y_0)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+x_2 = x_1 + h; \quad y_2 = y_1 + h y'_1 = y_1 + h f(x_1, y_1)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\vdots
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+x_i = x_{i-1} + h; \quad y_i = y_{i-1} + h y'_{i-1} = y_{i-1} + h f(x_{i-1}, y_{i-1})
+\]</div>
+<p>В общем виде формула Эйлера записывается следующим образом:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = y_{i-1} + h f(x_{i-1}, y_{i-1}); \quad x_i = x_{i-1} + h
+\]</div>
+<div style="text-align: center;">
+  <img src="imgs/Euler.png" width="75%" height="100%" alt="Image description">
+</div>
+<section id="id9">
+<h3>Погрешности<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Локальные погрешности — погрешности, образовавшиеся на каждом шаге.<br />
+Глобальная (накопленная) погрешность — погрешность, образовавшаяся за несколько шагов.</p>
+<p>Порядок глобальной погрешности относительно шага интегрирования на единицу ниже, чем порядок локальной погрешности.</p>
+<p>Таким образом, <strong>глобальная погрешность метода Эйлера</strong> имеет порядок <span class="math notranslate nohighlight">\(p = 1\)</span>:<br />
+<span class="math notranslate nohighlight">\(g_1 = C \cdot h \)</span>, где <span class="math notranslate nohighlight">\(C\)</span> — некоторая постоянная.</p>
+<p>Порядок численного метода для решения ОДУ определяется порядком его глобальной погрешности. Он может быть также определён как количество вычислений значения производной <span class="math notranslate nohighlight">\(f(x, y)\)</span> искомой функции на каждом шаге. В соответствии с этим метод Эйлера является методом первого порядка.</p>
+</section>
+</section>
+<section id="id10">
+<h2>Метод предиктора-корректора<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>Метод предиктора-корректора также известен как <strong>метод модифицированного Эйлера</strong>.<br />
+В <strong>методе Эйлера</strong> в точке строится касательная, а наклон вычисляется для заданного размера шага. Этот метод хорошо работает с линейными функциями, но в других случаях остаётся ошибка усечения. Для решения этой проблемы был введён метод модифицированного Эйлера. В этом методе вместо точки используется среднее арифметическое наклона на интервале <span class="math notranslate nohighlight">\( (x_t, x_{t+1})\)</span>.</p>
+<p>Таким образом, в методе «предиктора-корректора» для каждого шага сначала вычисляется прогнозируемое значение<span class="math notranslate nohighlight">\( y_{n+1} \)</span> с помощью метода Эйлера, а затем вычисляются наклоны в точках <span class="math notranslate nohighlight">\( (x_t, y_t) \)</span> и <span class="math notranslate nohighlight">\( (x_{t+1}, y_{t+1}) \)</span>. Среднее арифметическое этих наклонов добавляется к <span class="math notranslate nohighlight">\( y_t\)</span> для вычисления скорректированного значения <span class="math notranslate nohighlight">\( y_{n+1}\)</span>.</p>
+<hr class="docutils" />
+<section id="id11">
+<h3>Метод предиктора-корректора состоит из двух шагов:<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Шаг предиктора:</strong><br />
+Используется явный метод для получения предварительного значения:<br />
+<span class="math notranslate nohighlight">\( y_{n+1}^{(p)} = y_n + h f(x_n, y_n) \)</span><br />
+(предсказанное значение).</p></li>
+<li><p><strong>Шаг корректора:</strong><br />
+Используется неявный метод (или более точный явный метод) для уточнения значения:<br />
+<span class="math notranslate nohighlight">\( y_{n+1} = y_n + \frac{h}{2} \left[ f(x_n, y_n) + f(x_{n+1}, y_{n+1}^{(p)}) \right] \)</span>
+(основано на предсказанном значении).</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h3>Для решения ОДУ:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\frac{dy}{dx} = f(x, y), \quad y(x_0) = y_0,
+\]</div>
+<p>мы используем:</p>
+<ol class="arabic simple">
+<li><p><strong>Шаг предиктора</strong> (например, метод Эйлера):<br />
+$<span class="math notranslate nohighlight">\( y_{n+1}^{(p)} = y_n + h \cdot f(x_n, y_n), \)</span><span class="math notranslate nohighlight">\(  
+где \)</span> y_{n+1}^{(p)} $ — предсказанное значение.</p></li>
+<li><p><strong>Шаг корректора</strong> (например, метод трапеций):<br />
+$<span class="math notranslate nohighlight">\( y_{n+1} = y_n + \frac{h}{2} \left[ f(x_n, y_n) + f(x_{n+1}, y_{n+1}^{(p)}) \right]. \)</span>$</p></li>
+</ol>
+<p>Здесь <span class="math notranslate nohighlight">\( f(x_{n+1}, y_{n+1}^{(p)}) \)</span> — производная, рассчитанная на основе предсказанного значения.</p>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h3>Шаги метода:<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Шаг 1:</strong> Прогнозирование значения шага <span class="math notranslate nohighlight">\( t+1 \)</span>:<br />
+$<span class="math notranslate nohighlight">\( y_{t+1,p} = y_t + h \cdot f(x_t, y_t), \)</span><span class="math notranslate nohighlight">\(  
+где \)</span> h $ — размер шага.</p></li>
+<li><p><strong>Шаг 2:</strong> Корректировка прогнозируемого значения:<br />
+$<span class="math notranslate nohighlight">\( y_{t+1,c} = y_t + h \cdot \frac{f(x_t, y_t) + f(x_{t+1}, y_{t+1,p})}{2}. \)</span>$</p></li>
+<li><p><strong>Шаг 3:</strong> Выполнение приращения:<br />
+$<span class="math notranslate nohighlight">\( x_{t+1} = x_t + h, \quad t = t + 1. \)</span>$</p></li>
+<li><p><strong>Шаг 4:</strong> Проверка на продолжение: если <span class="math notranslate nohighlight">\( x_t &lt; x_n \)</span>, то повторить с шага 1.</p></li>
+</ul>
+</section>
+</section>
+<section id="id14">
+<h2>Метод Рунге-Кутты 1-4 порядков.<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p><strong>СНАЧАЛА ОБЪЯСНЕНИЕ С ПРИМЕРАМИ В САМОМ КОНЦЕ ЧИСТО ФОРМУЛЫ ДЛЯ ВСЕХ ЧЕТЫРЕХ ПОРЯДКОВ</strong></p>
+<p>Метод Рунге-Кутты является широко используемым при интегрировании обыкновенных дифференциальных уравнений. По умолчанию речь идёт о методе Рунге-Кутты четвертого порядка точности – из-за большой распространенности данного метода, указания на тип и порядок зачастую опускаются. При этом существуют еще методы первого, второго и третьего порядка точности.</p>
+<p>Для построения разностной схемы интегрирования воспользуемся разложением искомой функции <span class="math notranslate nohighlight">\(y(x)\)</span> в ряд Тейлора:</p>
+<div class="math notranslate nohighlight">
+\[
+y(x_{k+1}) = y(x_k) + y'(x_k)h + \frac{y''(x_k)h^2}{2} + \ldots
+\]</div>
+<p>Заменим вторую производную в этом разложении выражением:</p>
+<div class="math notranslate nohighlight">
+\[
+y''(x_k) = (y'(x_k))' = f'(x_k, y(x_k)) \approx \frac{f(x, \tilde{y}) - f(x_k, y(x_k))}{\Delta x},
+\]</div>
+<p>где <span class="math notranslate nohighlight">\(\tilde{x} = x_k + \Delta x; \tilde{y} = y(x_k + \Delta x)\)</span>.</p>
+<hr class="docutils" />
+<p><span class="math notranslate nohighlight">\(\Delta x\)</span> подбирается из условия достижения наибольшей точности записанного выражения.</p>
+<p>Для дальнейших выкладок произведем замену <span class="math notranslate nohighlight">\(\tilde{y}\)</span> разложением в ряд Тейлора:</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{y} = y(x_k + \Delta x) = y(x_k) + y'(x_k)\Delta x + \ldots
+\]</div>
+<p>Введем обозначение: <span class="math notranslate nohighlight">\(y_k = y(x_k)\)</span>. Тогда для исходного уравнения построим вычислительную схему:</p>
+<div class="math notranslate nohighlight">
+\[
+y_{k+1} = y_k + h \left( f(x_k, y_k) + \frac{h^2}{2\Delta x} \left( f(x_k + \Delta x, y_k + y'_k \Delta x) - f(x_k, y_k) \right) \right),
+\]</div>
+<p>которую преобразуем в виду:</p>
+<div class="math notranslate nohighlight">
+\[
+y_{k+1} = y_k + h \left[ \left( 1 - \frac{h}{2\Delta x} \right) f(x_k, y_k) + \frac{h}{2\Delta x} f \left( x_k + \Delta x, y_k + \frac{\Delta x}{h} h f(x_k, y_k) \right) \right].
+\]</div>
+<hr class="docutils" />
+<p>Введем следующие обозначения:</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha = \frac{h}{2\Delta x}, \quad \beta = 1 - \frac{h}{2\Delta x}, \quad \gamma = \frac{\Delta x}{h}, \quad \delta = f(x_k, y_k) \frac{\Delta x}{h}.
+\]</div>
+<p>Эти обозначения позволяют записать предыдущее выражение в форме:</p>
+<div class="math notranslate nohighlight">
+\[
+y_{k+1} = y_k + h \left[ \beta f(x_k, y_k) + \alpha f \left( x_k + \frac{h}{2\alpha}, y_k + \delta h \right) \right].
+\]</div>
+<p>Очевидно, что все введенные коэффициенты зависят от величины <span class="math notranslate nohighlight">\(\Delta x\)</span> и могут быть определены через коэффициент <span class="math notranslate nohighlight">\(\alpha\)</span>, который в данном случае играет роль параметра:</p>
+<div class="math notranslate nohighlight">
+\[
+\beta = 1 - \alpha, \quad \gamma = \frac{1}{2\alpha}, \quad \delta = f(x_k, y_k) \frac{2}{\alpha}.
+\]</div>
+<p>Окончательно схема Рунге-Кутты принимает вид:</p>
+<div class="math notranslate nohighlight">
+\[
+y_{k+1} = y_k + h \left( (1 - \alpha) f(x_k, y_k) + \alpha f \left( x_k + \frac{h}{2\alpha}, y_k + f(x_k, y_k) \frac{2h}{\alpha} \right) \right).
+\]</div>
+<hr class="docutils" />
+<p>При <span class="math notranslate nohighlight">\(\alpha = 0\)</span> получаем как частный случай уже известную схему Эйлера:</p>
+<div class="math notranslate nohighlight">
+\[
+y_{k+1} = y_k + h f(x_k, y_k).
+\]</div>
+<p>При <span class="math notranslate nohighlight">\(\alpha = 0.5\)</span> получаем как частный случай метод Рунге-Кутты второго порядка / схему Эйлера с пересчетом:</p>
+<div class="math notranslate nohighlight">
+\[
+y_{k+1} = y_k + \frac{h}{2} \left[ f(x_k, y_k) + f \left( x_k + h, y_k + h f(x_k, y_k) \right) \right].
+\]</div>
+<p>Классический метод Рунге-Кутты второго порядка, он же метод Эйлера с пересчетом, описывается следующим уравнением:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = y_{i-1} + h \cdot f(x_i, y_i).
+\]</div>
+<p>Схема является неявной, так как искомое значение <span class="math notranslate nohighlight">\(y_i\)</span> входит в обе части уравнения. Затем вычисляют значение производной в точке <span class="math notranslate nohighlight">\((x_i, y_i)\)</span> и окончательно полагают:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = y_{i-1} + h \cdot \frac{f(x_{i-1}, y_{i-1}) + f(x_i, y_i)}{2}.
+\]</div>
+<p>Это есть усреднение значений производных в начальной точке и в точке “грубого приближения”. Окончательно рекуррентную формулу метода Рунге-Кутты второго порядка записывают так:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = y_{i-1} + \frac{h}{2} (K_1 + K_2),
+\]</div>
+<p>где:</p>
+<div class="math notranslate nohighlight">
+\[
+K_1 = f(x_{i-1}, y_{i-1}), \quad K_2 = f \left( x_{i-1} + h, y_{i-1} + h \cdot K_1 \right).
+\]</div>
+<p>Метод имеет второй порядок точности. Локальная погрешность метода Рунге-Кутты второго порядка <span class="math notranslate nohighlight">\(g = C \cdot h^3\)</span>, где <span class="math notranslate nohighlight">\(C\)</span> — некоторая постоянная, и пропорциональна кубу шага интегрирования: при уменьшении шага в 2 раза локальная погрешность уменьшится в 8 раз.</p>
+<p>В сравнении с методом Эйлера, метод Рунге-Кутты дает результаты более близкие к точному решению даже при достаточно высоких значениях шага интегрирования.</p>
+<div style="text-align: center;">
+  <img src="imgs/example_ode.png" width="70%" height="70%" alt="Image description">
+</div>
+<hr class="docutils" />
+<section id="id15">
+<h3>Метод Рунге-Кутты 4 порядка<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>Рассмотрим разностную схему Рунге-Кутты четвертого порядка точности, которую на практике используют чаще других:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = y_{i-1} + \frac{h}{6} (k_1 + 2 \cdot k_2 + 2 \cdot k_3 + k_4),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+x_i = x_{i-1} + h,
+\]</div>
+<p>где:</p>
+<div class="math notranslate nohighlight">
+\[
+k_1 = f(x_{i-1}, y_{i-1}),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_2 = f \left( x_{i-1} + \frac{h}{2}, y_{i-1} + \frac{h}{2} \cdot k_1 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_3 = f \left( x_{i-1} + \frac{h}{2}, y_{i-1} + \frac{h}{2} \cdot k_2 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_4 = f(x_{i-1} + h, y_{i-1} + h \cdot k_3).
+\]</div>
+<p>Таким образом, метод Рунге-Кутты требует на каждом шаге четырехкратного вычисления правой части уравнения <span class="math notranslate nohighlight">\(f(x, y)\)</span>.</p>
+<p><strong>ПРИМЕР</strong><br />
+Рассмотрим решение обыкновенного дифференциального уравнения:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{dy}{dx} = \frac{y}{(\cos(x))^2}
+\]</div>
+<p>Воспользуемся формулами:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = y_{i-1} + \frac{h}{6} \left( k_1 + 2 \cdot k_2 + 2 \cdot k_3 + k_4 \right),  
+\quad x_i = x_{i-1} + h
+\]</div>
+<p>и построим с их помощью таблицу искомых значений переменной <span class="math notranslate nohighlight">\(y_i\)</span>, соответствующих значениям переменной <span class="math notranslate nohighlight">\(x\)</span> из диапазона <span class="math notranslate nohighlight">\([0, 1]\)</span> с шагом <span class="math notranslate nohighlight">\(h = 0.1\)</span>.</p>
+<p><strong>Подставим в формулы</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+k_1 = f(x_{i-1}, y_{i-1}),  
+\quad k_2 = f \left( x_{i-1} + \frac{h}{2}, y_{i-1} + \frac{h}{2} \cdot k_1 \right),  
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_3 = f \left( x_{i-1} + \frac{h}{2}, y_{i-1} + \frac{h}{2} \cdot k_2 \right),  
+\quad k_4 = f(x_{i-1} + h, y_{i-1} + h \cdot k_3)
+\]</div>
+<p>Выражение правой части исходного дифференциального уравнения и записанные формулы для определения параметров метода Рунге-Кутты:</p>
+<hr class="docutils" />
+<p><strong>Результаты сведем в таблице</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(k_1\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(k_2\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(k_3\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(k_4\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(y_i\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.0</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>2.7183</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1</p></td>
+<td><p>2.7183</p></td>
+<td><p>2.8614</p></td>
+<td><p>2.8685</p></td>
+<td><p>3.0354</p></td>
+<td><p>3.0052</p></td>
+</tr>
+<tr class="row-even"><td><p>0.2</p></td>
+<td><p>3.0354</p></td>
+<td><p>3.2291</p></td>
+<td><p>3.2390</p></td>
+<td><p>3.4309</p></td>
+<td><p>3.3291</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.3</p></td>
+<td><p>3.4659</p></td>
+<td><p>3.7308</p></td>
+<td><p>3.7449</p></td>
+<td><p>4.0581</p></td>
+<td><p>3.7037</p></td>
+</tr>
+<tr class="row-even"><td><p>0.4</p></td>
+<td><p>4.0581</p></td>
+<td><p>4.4272</p></td>
+<td><p>4.4481</p></td>
+<td><p>4.8903</p></td>
+<td><p>4.1487</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.5</p></td>
+<td><p>4.8903</p></td>
+<td><p>5.4184</p></td>
+<td><p>5.4509</p></td>
+<td><p>6.0947</p></td>
+<td><p>4.6941</p></td>
+</tr>
+<tr class="row-even"><td><p>0.6</p></td>
+<td><p>6.0951</p></td>
+<td><p>6.8779</p></td>
+<td><p>6.9318</p></td>
+<td><p>7.9088</p></td>
+<td><p>5.3878</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.7</p></td>
+<td><p>7.9096</p></td>
+<td><p>9.1256</p></td>
+<td><p>9.2153</p></td>
+<td><p>10.7883</p></td>
+<td><p>6.2460</p></td>
+</tr>
+<tr class="row-even"><td><p>0.8</p></td>
+<td><p>10.7883</p></td>
+<td><p>12.7957</p></td>
+<td><p>12.9832</p></td>
+<td><p>15.6764</p></td>
+<td><p>7.6114</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.9</p></td>
+<td><p>15.6806</p></td>
+<td><p>19.2746</p></td>
+<td><p>19.4683</p></td>
+<td><p>24.8050</p></td>
+<td><p>9.5846</p></td>
+</tr>
+<tr class="row-even"><td><p>1.0</p></td>
+<td><p>24.8050</p></td>
+<td><p>31.9927</p></td>
+<td><p>33.0548</p></td>
+<td><p>44.1554</p></td>
+<td><p>12.9022</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<p>Метод Рунге-Кутты требует большого объема вычислений, однако это окупается повышенной точностью, что дает возможность проводить счет с большим шагом. Другими словами, для получения результатов с одинаковой точностью в методе Эйлера потребуется значительно меньший шаг, чем в методе Рунге-Кутты.</p>
+<p>С уменьшением шага <span class="math notranslate nohighlight">\(h\)</span> локальная погрешность метода Эйлера снижается, но при этом возрастает количество узлов, что неблагоприятно влияет на точность результатов. Поэтому метод Эйлера применяется достаточно редко при небольшом числе расчетных точек. Наиболее употребительным одношаговым методом является метод Рунге-Кутты.</p>
+</section>
+</section>
+<section id="id16">
+<h2>ЧИСТО ФОРМУЛЫ<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<section id="id17">
+<h3>1 ПОРЯДОК — МЕТОД ЭЙЛЕРА<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_n + h \cdot f(x_n, y_n).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id18">
+<h3>2 ПОРЯДОК<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+k_1 = f(x_n, y_n),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_2 = f \left( x_n + \frac{h}{2}, y_n + \frac{h}{2} \cdot k_1 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_n + h \cdot k_2.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id19">
+<h3>3 ПОРЯДОК<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+k_1 = f(x_n, y_n),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_2 = f \left( x_n + \frac{h}{2}, y_n + \frac{h}{2} \cdot k_1 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_3 = f \left( x_n + h, y_n - h \cdot k_1 + 2h \cdot k_2 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_n + \frac{h}{6} \left( k_1 + 4k_2 + k_3 \right).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h3>4 ПОРЯДОК<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+k_1 = f(x_n, y_n),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_2 = f \left( x_n + \frac{h}{2}, y_n + \frac{h}{2} \cdot k_1 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_3 = f \left( x_n + \frac{h}{2}, y_n + \frac{h}{2} \cdot k_2 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_4 = f \left( x_n + h, y_n + h \cdot k_3 \right),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_n + \frac{h}{6} \left( k_1 + 2k_2 + 2k_3 + k_4 \right).
+\]</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="base_ops.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Общие вычислительные операции</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="fourier.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Моделирование волны</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Обыкновенные дифференциальные уравнения, задача Коши</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Основные определения и утверждения</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Локальная, глобальная ошибки</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Метод центральной разности</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Разложение в ряд Тейлора:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Невязка:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Метод Эйлера</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Погрешности</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Метод предиктора-корректора</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Метод предиктора-корректора состоит из двух шагов:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Для решения ОДУ:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Шаги метода:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Метод Рунге-Кутты 1-4 порядков.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Метод Рунге-Кутты 4 порядка</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ЧИСТО ФОРМУЛЫ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">1 ПОРЯДОК — МЕТОД ЭЙЛЕРА</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2 ПОРЯДОК</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3 ПОРЯДОК</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4 ПОРЯДОК</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Galkin Vladimir, Trunova Valentina
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

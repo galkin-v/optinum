@@ -65,7 +65,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'base_ops';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Моделирование волн" href="fourier.html" />
+    <link rel="next" title="Решение ДУ и систем ДУ." href="odes.html" />
     <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -172,7 +172,8 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Общие вычислительные операции</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fourier.html">Моделирование волн</a></li>
+<li class="toctree-l1"><a class="reference internal" href="odes.html">Решение ДУ и систем ДУ.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier.html">Моделирование волны</a></li>
 </ul>
 
     </div>
@@ -365,15 +366,16 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Наивное умножение матрицы на вектор и умножение матриц.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lru">Иерархия памяти, план кеша и LRU, промахи в обращении к кешу.</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Наивное умножение матрицы на вектор и умножение матриц</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lru">Иерархия памяти, план кеша и LRU, промахи в обращении к кешу</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Иерархия памяти</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">План кэша</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lru-least-recently-used">LRU (Least Recently Used)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cache-miss">Промах кэша (Cache Miss)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Алгоритм Штрассена.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Алгоритм на основе стратегии “разделяй и властвуй”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Алгоритм Штрассена</a></li>
 </ul>
             </nav>
         </div>
@@ -388,7 +390,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>Общие вычислительные операции<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <section id="id2">
-<h2>Наивное умножение матрицы на вектор и умножение матриц.<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<h2>Наивное умножение матрицы на вектор и умножение матриц<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 C = A * B = 
@@ -403,7 +405,7 @@ C = A * B =
 <p>Сложность этого алгоритма <span class="math notranslate nohighlight">\(O(n^3)\)</span>. Количество столбцов в первой матрице должно совпадать с количеством строк во второй матрицe.</p>
 </section>
 <section id="lru">
-<h2>Иерархия памяти, план кеша и LRU, промахи в обращении к кешу.<a class="headerlink" href="#lru" title="Link to this heading">#</a></h2>
+<h2>Иерархия памяти, план кеша и LRU, промахи в обращении к кешу<a class="headerlink" href="#lru" title="Link to this heading">#</a></h2>
 <section id="id3">
 <h3>Иерархия памяти<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>CPU (Регистры процессора)</p>
@@ -460,7 +462,29 @@ C = A * B =
 </section>
 </section>
 <section id="id5">
-<h2>Алгоритм Штрассена.<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<h2>Алгоритм на основе стратегии “разделяй и властвуй”<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>Альтернативой итерационному алгоритму для умножения матриц является алгоритм разделяй-и-властвуй. Он опирается на разложение на блоки:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C = \begin{pmatrix} C_{11} &amp; C_{12} \\ C_{21} &amp; C_{22} \end{pmatrix}, \quad
+A = \begin{pmatrix} A_{11} &amp; A_{12} \\ A_{21} &amp; A_{22} \end{pmatrix}, \quad
+B = \begin{pmatrix} B_{11} &amp; B_{12} \\ B_{21} &amp; B_{22} \end{pmatrix},
+\end{split}\]</div>
+<p>что работает для всех квадратных матриц с размерами, равными степеням двойки. Произведение матриц тогда равно:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix} 
+C_{11} &amp; C_{12} \\ 
+C_{21} &amp; C_{22} 
+\end{pmatrix} = 
+\begin{pmatrix} 
+A_{11}B_{11} + A_{12}B_{21} &amp; A_{11}B_{12} + A_{12}B_{22} \\ 
+A_{21}B_{11} + A_{22}B_{21} &amp; A_{21}B_{12} + A_{22}B_{22} 
+\end{pmatrix}.
+\end{split}\]</div>
+</section>
+<section id="id6">
+<h2>Алгоритм Штрассена<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <p>Наивный алгоритм умножения матриц имеет алгоритмическую сложность <span class="math notranslate nohighlight">\(O(n^3)\)</span></p>
 <p>Рассмотрим ниже метод Штрассена - сложности <span class="math notranslate nohighlight">\(O(n^{2,8})\)</span>.
 Схема алгоритма:
@@ -567,11 +591,11 @@ B_{21} &amp; B_{22}
       </div>
     </a>
     <a class="right-next"
-       href="fourier.html"
+       href="odes.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Моделирование волн</p>
+        <p class="prev-next-title">Решение ДУ и систем ДУ.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -592,15 +616,16 @@ B_{21} &amp; B_{22}
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Наивное умножение матрицы на вектор и умножение матриц.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lru">Иерархия памяти, план кеша и LRU, промахи в обращении к кешу.</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Наивное умножение матрицы на вектор и умножение матриц</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lru">Иерархия памяти, план кеша и LRU, промахи в обращении к кешу</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Иерархия памяти</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">План кэша</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lru-least-recently-used">LRU (Least Recently Used)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cache-miss">Промах кэша (Cache Miss)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Алгоритм Штрассена.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Алгоритм на основе стратегии “разделяй и властвуй”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Алгоритм Штрассена</a></li>
 </ul>
   </nav></div>
 
