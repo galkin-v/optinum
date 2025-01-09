@@ -1,32 +1,23 @@
 import numpy as np
+from typing import List
 
-def dft(x: np.ndarray[np.complex128]) -> np.ndarray[np.complex128]:
+def dft(x: List[complex]) -> List[complex]:
     """
-    Вычисляет дискретное преобразование Фурье (ДПФ) входного сигнала.
+    Вычисляет дискретное преобразование Фурье (ДПФ) входного сигнала вручную.
 
-    Функция реализует ДПФ, используя матричное умножение для эффективного вычисления.
-
-    Параметры
-    ----------
-    x : np.ndarray[np.complex128]
-        Входной сигнал как массив комплексных чисел
-
-    Возвращает
-    ----------
-    np.ndarray[np.complex128]
-        Результат ДПФ - массив комплексных чисел той же длины, что и входной сигнал
+    :param x: Входной сигнал как список комплексных чисел
+    :return: Результат ДПФ - список комплексных чисел той же длины, что и входной сигнал
 
     Пример
     -------
-    >>> x = np.array([1+0j, 2+0j, 3+0j, 4+0j])
+    >>> x = [1+0j, 2+0j, 3+0j, 4+0j]
     >>> dft(x)
-    array([ 10.+0.j,  -2.+2.j,  -2.+0.j,  -2.-2.j])
+    [(10+0j), (-2.0000000000000004+1.9999999999999996j), (-2-9.797174393178826e-16j), (-1.9999999999999982-2.000000000000001j)]
     """
     N = len(x)
-    n = np.arange(N)[:, None]  # Create a column vector of n
-    k = np.arange(N)[None, :]  # Create a row vector of k
-    W = np.exp(-2j * np.pi * k * n / N)  # Calculate the DFT matrix using broadcasting
-    return x @ W
+    W = [[np.exp(-2j * np.pi * k * n / N) for k in range(N)] for n in range(N)]  # Матрица DFT
+    result = [sum(W[n][k] * x[k] for k in range(N)) for n in range(N)]  # Умножение на вектор
+    return result
 
 def idft(X: np.ndarray[np.complex128]) -> np.ndarray[np.complex128]:
     """
