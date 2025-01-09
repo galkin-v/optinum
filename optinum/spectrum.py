@@ -113,20 +113,10 @@ def find_min_max_eigenvalues(A):
     max_eigenvalue (float): Максимальное собственное значение. 
     """ 
     eigenvalues = compute_spectrum(A) 
-    return min(eigenvalues), max(eigenvalues) 
- 
-# Пример использования 
-if __name__ == "__main__": 
-    # Определить пример матрицы 
-    A = [[6, 2, 1], 
-         [2, 3, 1], 
-         [1, 1, 1]] 
- 
-    # QR алгоритм 
-    eigenvalues, eigenvectors = qr_algorithm(A) 
-    print("Eigenvalues:", eigenvalues) 
-    print("Eigenvectors:", eigenvectors) 
- 
+    return min(eigenvalues), max(eigenvalues)
+
+
+def plot_pseudospectrum(A):
     # Спектр 
     spectrum = compute_spectrum(A) 
     print("Spectrum:", spectrum) 
