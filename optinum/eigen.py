@@ -71,4 +71,9 @@ def power_method(A: np.ndarray, num_iterations: int = 1000, tol: float = 1e-6) -
 
     return lambda_, x_next
 
-import numpy as np
+if __name__ == "__main__":
+    A = np.array([[4, 1],
+                  [2, 3]])
+    lambda_max, eigenvector = power_method(A)
+    print("Наибольшее собственное значение:", lambda_max)
+    print("Соответствующий собственный вектор:", eigenvector)

@@ -51,6 +51,9 @@ def strassen_multiply(a: List[List], b: List[List]) -> List[List]:
         a21 = [row[:mid] for row in matrix[mid:]]
         a22 = [row[mid:] for row in matrix[mid:]]
         return a11, a12, a21, a22
+    
+    def norm(vector):
+        return sum(x**2 for x in vector) ** 0.5
 
     def merge(c11: List[List], c12: List[List], c21: List[List], c22: List[List]) -> List[List]:
         """
