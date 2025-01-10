@@ -25,6 +25,8 @@ def multiply(matrix_a: List[List], matrix_b: List[List]) -> List[List]:
     Перемножает две матрицы.
     doc:
     https://docs.google.com/document/d/18DIx27J1_ojHBvipGtd2kv7lDXdCifzRovVDGaVUa7A/edit?tab=t.0
+
+    https://galkin-v.github.io/base_ops.html
     
     :param matrix_a: Первая матрица
     :param matrix_b: Вторая матрица
