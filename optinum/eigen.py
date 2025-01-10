@@ -255,3 +255,140 @@ def plot_pseudospectrum(A: np.ndarray) -> None:
     plt.xlabel("Re") 
     plt.ylabel("Im") 
     plt.show()
+
+def schur_decomposition(A, tol=1e-10, max_iter=1000):
+    """
+    Функция для разложения Шура матрицы A.
+
+    Параметры:
+    A : np.ndarray
+        Квадратная матрица для разложения.
+    tol : float
+        Допустимая ошибка для остановки итераций.
+    max_iter : int
+        Максимальное количество итераций.
+
+    Возвращает:
+    U : np.array()
+        Унитарная матрица.
+    T : np.array()
+        Верхняя треугольная матрица.
+    U*: np.array()
+      эрмитово-сопряженная матрица
+
+    Пример использования:
+
+    >>> A = np.array([[1, -1, 1],
+                [2, 3, 9],
+                [3, 5, 5]], dtype = float)
+
+    >>> U, T, U_conjugate = schur_decomposition(A)
+    >>> A_reconstructed = U @ T @ U_conjugate
+    >>> print(A_reconstructed)
+
+    [[ 1.05975064 -1.02519765  1.03695278]
+    [ 2.04868027  2.82188809  9.12925175]
+    [ 3.05507456  4.90388791  5.07457154]]
+    """
+    def zero(m, n):
+      z = [[0 for _ in range(n)] for _ in range(m)] # нулевая матрица
+      return z
+
+    def transpose(m): # функция транспонирования матрицы
+      return list(map(list, zip(*m)))
+
+    def vector_norm(v): # нормализация
+      return sum(x ** 2 for x in v) ** 0.5
+
+    def multiply_v(a, b): # скалярное произведение векторов
+      return sum([a[i] * b[i] for i in range(len(a))])
+
+    def multiply(a, b):
+        rows_a, cols_a = len(a), len(a[0])
+        rows_b, cols_b = len(b), len(b[0])
+
+        result = np.zeros((rows_a, cols_b))
+
+        for i in range(rows_a):
+            for j in range(cols_b):
+                for k in range(cols_a):
+                    result[i, j] += a[i, k] * b[k, j]
+
+        return result
+
+    def qr_razloj(A):
+
+        m = len(A)
+        n = len(A[0])
+        Q = zero(m, n)
+
+
+      # векторы-столбцы заданной матрицы A
+        a = []
+        for i in range(len(A[0])):
+            a.append(transpose(A)[i])
+
+
+      # чтобы в дальнейшем найти векторы-столбцы матрицы Q, найдём промежуточные векторы u
+        u = [a[0]]
+        for i in range(n-1):
+            v_ = a[i+1]
+            u_new = a[i+1]
+            for j in range(i+1):
+                scale = multiply_v(u[j], v_) / multiply_v(u[j], u[j])
+                for r in range(len(u_new)):
+                    u_new[r] -= scale * u[j][r]
+            u.append(u_new)
+
+      # найдём векторы-столбцы матрицы Q
+        e = []
+        for i in range(n):
+            e_ = u[i]
+            norm = vector_norm(e_)
+            for j in range(len(e_)):
+                e_[j] /= norm
+            e.append(e_)
+
+      # Из полученных векторов составляем по столбцам матрицу Q
+        Q = transpose(e)
+
+      # Найдем матрицу R=Q^{-1}*A=Q^{T}*A
+        R = [[0]*m for _ in range(n)]
+        for i in range(n):
+            for j in range(i, m):
+                A_j = [A[k][j] for k in range(n)]
+                Q_i = [Q[k][i] for k in range(n)]
+                R[i][j] = multiply_v(A_j, Q_i)
+
+      # округляем значения матриц до адекватного числа знаков
+        for i in range(n):
+            for j in range(n):
+                Q[i][j] = round(Q[i][j], 2)
+                R[i][j] = round(R[i][j], 2)
+
+        return Q, R
+
+    n = len(A)
+    Q = np.eye(n)  # Начальная унитарная матрица
+    A_k = A.copy()  # Копия исходной матрицы
+
+    for _ in range(max_iter):
+        # QR-разложение
+        Q_k, R_k = qr_razloj(A_k)
+        Q_k = np.array(Q_k)
+        R_k = np.array(R_k)
+
+        # Обновление A_k
+        A_k = multiply(R_k, Q_k)
+
+        # Обновление Q
+        Q = multiply(Q, Q_k)
+
+        # # Проверка на сходимость (разница между текущей и предыдущей матрицами)
+        # if np.linalg.norm(np.triu(A_k, 1)) < tol:
+        #     break
+
+    # Вычисление сопряженной матрицы U*
+    U_conjugate = transpose(Q)
+
+    return Q, A_k, U_conjugate
